@@ -1,6 +1,5 @@
 package ssau.graduatework.attractionsearchservice.attraction;
 
-import ssau.graduatework.attractionsearchservice.attraction.dto.AttractionDto;
 import ssau.graduatework.attractionsearchservice.review.dto.ReviewDto;
 
 import java.util.List;

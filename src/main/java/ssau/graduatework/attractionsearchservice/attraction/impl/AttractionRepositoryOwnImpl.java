@@ -9,16 +9,16 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import ssau.graduatework.attractionsearchservice.attraction.Attraction;
 import ssau.graduatework.attractionsearchservice.attraction.util.AttractionFields;
-import ssau.graduatework.attractionsearchservice.attraction.OwnAttractionRepository;
+import ssau.graduatework.attractionsearchservice.attraction.AttractionRepositoryOwn;
 
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class OwnAttractionRepositoryImpl implements OwnAttractionRepository {
+public class AttractionRepositoryOwnImpl implements AttractionRepositoryOwn {
     private final EntityManager entityManager;
 
-    public OwnAttractionRepositoryImpl(EntityManager entityManager) {
+    public AttractionRepositoryOwnImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

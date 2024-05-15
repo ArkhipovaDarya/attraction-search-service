@@ -1,4 +1,4 @@
-package ssau.graduatework.attractionsearchservice.attraction.dto;
+package ssau.graduatework.attractionsearchservice.attraction;
 
 import lombok.Getter;
 import ssau.graduatework.attractionsearchservice.attraction.util.AttractionCategory;

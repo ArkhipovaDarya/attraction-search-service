@@ -3,7 +3,7 @@ package ssau.graduatework.attractionsearchservice.attraction.util;
 import org.springframework.stereotype.Component;
 import ssau.graduatework.attractionsearchservice.attraction.Attraction;
 import ssau.graduatework.attractionsearchservice.attraction.AttractionRepository;
-import ssau.graduatework.attractionsearchservice.attraction.dto.AttractionDto;
+import ssau.graduatework.attractionsearchservice.attraction.AttractionDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

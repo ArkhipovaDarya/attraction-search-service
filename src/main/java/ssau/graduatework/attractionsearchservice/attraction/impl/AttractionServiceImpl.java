@@ -3,7 +3,7 @@ package ssau.graduatework.attractionsearchservice.attraction.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ssau.graduatework.attractionsearchservice.attraction.*;
-import ssau.graduatework.attractionsearchservice.attraction.dto.AttractionDto;
+import ssau.graduatework.attractionsearchservice.attraction.AttractionDto;
 import ssau.graduatework.attractionsearchservice.attraction.util.AttractionCategory;
 import ssau.graduatework.attractionsearchservice.attraction.util.AttractionFields;
 import ssau.graduatework.attractionsearchservice.attraction.util.AttractionMapper;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AttractionServiceImpl implements AttractionService {
     private final AttractionRepository attractionRepository;
-    private final OwnAttractionRepository attractionRepositoryOwn;
+    private final AttractionRepositoryOwn attractionRepositoryOwn;
     Map<AttractionFields, Object> fieldsMap;
     private final AttractionMapper attractionMapper;
 

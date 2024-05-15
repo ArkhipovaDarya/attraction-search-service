@@ -33,14 +33,11 @@ public class User implements UserDetails {
 
     private String password;
 
-    @Column(name = "is_verified")
-    private Boolean isVerified;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    Set<Role> roles;
+    List<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();

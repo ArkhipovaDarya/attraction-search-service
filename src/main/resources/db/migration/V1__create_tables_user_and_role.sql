@@ -4,10 +4,9 @@ drop table if exists public.users_role;
 
 create table public.users (
     id bigserial not null,
-    username varchar not null,
+    name varchar not null,
     email varchar not null unique,
     password varchar not null,
-    is_verified boolean default false not null,
     primary key (id)
 );
 
@@ -26,5 +25,4 @@ create table public.users_roles (
 insert into public.roles
 values
     (1, 'ADMIN'),
-    (2, 'USER'),
-    (3, 'MODERATOR');
+    (2, 'USER');

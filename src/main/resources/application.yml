@@ -16,5 +16,3 @@ spring:
   flyway:
      enabled: true
      schemas: public
-
-jwtTimeOfLifeMs: 3600000

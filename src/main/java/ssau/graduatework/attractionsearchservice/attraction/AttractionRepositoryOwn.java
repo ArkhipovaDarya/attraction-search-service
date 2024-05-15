@@ -5,6 +5,6 @@ import ssau.graduatework.attractionsearchservice.attraction.util.AttractionField
 import java.util.List;
 import java.util.Map;
 
-public interface OwnAttractionRepository {
+public interface AttractionRepositoryOwn {
     List<Attraction> getAttractionsByCriteria(Map<AttractionFields, Object> criteria);
 }
