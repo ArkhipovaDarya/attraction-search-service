@@ -1,10 +1,8 @@
 package ssau.graduatework.attractionsearchservice.attraction;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import ssau.graduatework.attractionsearchservice.attraction.util.AttractionCategory;
 import ssau.graduatework.attractionsearchservice.city.City;
 import ssau.graduatework.attractionsearchservice.review.Review;
 import ssau.graduatework.attractionsearchservice.tag.Tag;
@@ -15,8 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "attraction")
 public class Attraction {
     @Id
@@ -50,15 +47,15 @@ public class Attraction {
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private List<Tag> tagList = new ArrayList<>();
 
-    /*public void setMiddleRate() {
+    public void setMiddleRate() {
         if (reviewList.isEmpty()) {
-            this.middleRate = 0.0;
+            this.rate = 0.0;
         } else {
             int rates = 0;
             for (Review review : reviewList) {
                 rates += review.getRate();
             }
-            this.middleRate = (double) rates / (double) reviewList.size();
+            this.rate = (double) rates / (double) reviewList.size();
         }
-    }*/
+    }
 }
