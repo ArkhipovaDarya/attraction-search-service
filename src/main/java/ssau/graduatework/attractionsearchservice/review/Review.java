@@ -17,7 +17,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_id_seq_generator")
     @SequenceGenerator(name = "review_id_seq_generator",
             sequenceName = "review_id_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
 
     private Integer rate;
 

@@ -20,7 +20,7 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attraction_id_seq_generator")
     @SequenceGenerator(name = "attraction_id_seq_generator",
             sequenceName = "attraction_id_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
 
     private String name;
 

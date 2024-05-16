@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface AttractionRepository extends JpaRepository<Attraction, Integer> {
+public interface AttractionRepository extends JpaRepository<Attraction, Long> {
     @Query(value = "select information, rate from public.attraction where name = ?1", nativeQuery = true)
     List<Object> getInformationAndRate(String attraction);
-    Optional<Attraction> findAttractionById(Integer id);
+    Optional<Attraction> findAttractionById(Long id);
 }
