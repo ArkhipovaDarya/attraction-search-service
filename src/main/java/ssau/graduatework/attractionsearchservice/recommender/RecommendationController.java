@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssau.graduatework.attractionsearchservice.attraction.Attraction;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/recommendations")
@@ -25,14 +22,14 @@ public class RecommendationController {
     @GetMapping("/{userId}")
     public List<Attraction> getRecommendations(@PathVariable Long userId) {
         // Получение рекомендаций с использованием коллаборативной фильтрации
-        List<Attraction> collaborativeRecommendations = collaborativeFilteringService.getRecommendations(userId);
+        Map<Attraction, Double> collaborativeRecommendations = collaborativeFilteringService.getRecommendations(userId);
 
         // Получение рекомендаций с использованием контентной фильтрации
         List<Attraction> contentBasedRecommendations = contentBasedFilteringService.getRecommendations(userId);
 
         // Объединение рекомендаций из обоих методов и присвоение им равного веса
         Set<Attraction> combinedRecommendations = new HashSet<>();
-        combinedRecommendations.addAll(collaborativeRecommendations);
+        combinedRecommendations.addAll((Collection<? extends Attraction>) collaborativeRecommendations);
         combinedRecommendations.addAll(contentBasedRecommendations);
 
         // Возврат отсортированного списка объединенных рекомендаций

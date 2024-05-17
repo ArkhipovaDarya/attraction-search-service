@@ -140,7 +140,7 @@ public class AttractionServiceImpl implements AttractionService {
             case "religious" -> AttractionCategory.RELIGIOUS;
             case "historical" -> AttractionCategory.HISTORICAL;
             case "nature" -> AttractionCategory.NATURE;
-            default -> null;
+            default -> AttractionCategory.ANOTHER;
         };
     }
 }
