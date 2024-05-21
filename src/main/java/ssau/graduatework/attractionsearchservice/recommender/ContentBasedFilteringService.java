@@ -1,4 +1,4 @@
-package ssau.graduatework.attractionsearchservice.recommender;
+/*package ssau.graduatework.attractionsearchservice.recommender;
 
 import org.springframework.stereotype.Service;
 import ssau.graduatework.attractionsearchservice.attraction.Attraction;
@@ -82,5 +82,5 @@ public class ContentBasedFilteringService {
         // Вычисление коэффициента Жаккара
         return (double) intersection.size() / union.size();
     }
-}
+}*/
 

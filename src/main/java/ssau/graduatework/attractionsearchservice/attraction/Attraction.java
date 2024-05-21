@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "attraction")
 public class Attraction {
     @Id
@@ -24,7 +24,7 @@ public class Attraction {
 
     private String name;
 
-    private AttractionCategory category;
+    private String category;
 
     private Double longitude;
 
@@ -46,6 +46,15 @@ public class Attraction {
             joinColumns = {@JoinColumn(name = "attraction_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private List<Tag> tagList = new ArrayList<>();
+
+    public Attraction() {
+        setMiddleRate();
+    }
+
+    public Double getRate() {
+        setMiddleRate();
+        return rate;
+    }
 
     public void setMiddleRate() {
         if (reviewList.isEmpty()) {

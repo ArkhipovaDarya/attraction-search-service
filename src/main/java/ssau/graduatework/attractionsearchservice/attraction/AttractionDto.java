@@ -7,14 +7,14 @@ import ssau.graduatework.attractionsearchservice.attraction.util.AttractionCateg
 public class AttractionDto {
     private final Long id;
     private final String name;
-    private final AttractionCategory category;
+    private final String category;
     private final Double longitude;
     private final Double latitude;
     private final String information;
     private final Double rate;
     private final String city;
 
-    public AttractionDto(Long id, String name, AttractionCategory category, Double longitude, Double latitude, String information, Double rate, String city) {
+    public AttractionDto(Long id, String name, String category, Double longitude, Double latitude, String information, Double rate, String city) {
         this.id = id;
         this.name = name;
         this.category = category;

@@ -8,7 +8,5 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface AttractionRepository extends JpaRepository<Attraction, Long> {
-    @Query(value = "select information, rate from public.attraction where name = ?1", nativeQuery = true)
-    List<Object> getInformationAndRate(String attraction);
-    Optional<Attraction> findAttractionById(Long id);
+    Attraction findAttractionById(Long id);
 }

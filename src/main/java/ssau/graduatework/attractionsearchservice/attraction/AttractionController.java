@@ -62,17 +62,17 @@ public class AttractionController {
     }
 
     @GetMapping("/{attraction}")
-    public ResponseEntity<Object> getOnlyInfoAndMidRate(@PathVariable String attraction) {
+    public ResponseEntity<String> getOnlyInfoAndMidRate(@PathVariable Long attraction) {
         return new ResponseEntity<>(attractionService.getInformationAndRate(attraction), HttpStatus.OK);
     }
 
     @GetMapping("/{attraction}/reviews")
-    public ResponseEntity<List<ReviewDto>> getReviewList(@PathVariable String attraction) {
+    public ResponseEntity<List<ReviewDto>> getReviewList(@PathVariable Long attraction) {
         return new ResponseEntity<>(attractionService.showReviewList(attraction), HttpStatus.OK);
     }
 
     @PostMapping("/{attraction}/reviews/new/{rate}/{review}")
-    public ResponseEntity<List<ReviewDto>> setReviewForAttraction(@PathVariable String attraction, @PathVariable Integer rate, @PathVariable String review) {
+    public ResponseEntity<List<ReviewDto>> setReviewForAttraction(@PathVariable Long attraction, @PathVariable Integer rate, @PathVariable String review) {
         attractionService.setReview(attraction, rate, review);
         return new ResponseEntity<>(attractionService.showReviewList(attraction), HttpStatus.OK);
     }

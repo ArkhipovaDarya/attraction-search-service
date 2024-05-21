@@ -80,8 +80,9 @@ public class AttractionServiceImpl implements AttractionService {
 
     //string with a description of the attraction and its middle rate
     @Override
-    public List<Object> getInformationAndRate(String attraction) {
-        return attractionRepository.getInformationAndRate(attraction);
+    public String getInformationAndRate(Long id) {
+        Attraction attraction = attractionRepository.findAttractionById(id);
+        return id + " " + attraction.getName() + " " + attraction.getRate() + " " + attraction.getInformation();
     }
 
     @Override
@@ -101,15 +102,23 @@ public class AttractionServiceImpl implements AttractionService {
     }
 
     @Override
-    public List<ReviewDto> showReviewList(String attraction) {
-        return null;
+    public List<ReviewDto> showReviewList(Long attraction) {
+        Attraction attr = new Attraction();
+        for (Attraction a : showAllAttractions()) {
+            if (a.getId().equals(attraction)) attr = a;
+        }
+        List<ReviewDto> dto = new ArrayList<>();
+        for (Review rev: attr.getReviewList()) {
+            dto.add(new ReviewDto(rev.getId(), rev.getRate(), rev.getText()));
+        }
+        return dto;
     }
 
     @Override
-    public void setReview(String attraction, Integer rate, String review) {
+    public void setReview(Long attraction, Integer rate, String review) {
         Attraction attr = new Attraction();
         for (Attraction a : showAllAttractions()) {
-            if (a.getName().equals(attraction)) attr = a;
+            if (a.getId().equals(attraction)) attr = a;
         }
         Review rev = new Review(rate, review);
         rev.setAttraction(attr);
@@ -126,7 +135,7 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public AttractionDto updateAttraction(AttractionDto attractionDto) {
-        Attraction actual = attractionRepository.findAttractionById(attractionDto.getId()).orElseThrow();
+        Attraction actual = attractionRepository.findAttractionById(attractionDto.getId());
         actual.setInformation(attractionDto.getInformation());
         return attractionMapper.toDto(attractionRepository.saveAndFlush(actual));
     }
@@ -135,11 +144,12 @@ public class AttractionServiceImpl implements AttractionService {
     AttractionCategory convertCategory(String category) {
         category = category.toLowerCase().replace(" ", "_");
         return switch (category) {
-            case "military" -> AttractionCategory.MILITARY;
-            case "culture" -> AttractionCategory.CULTURE;
+            case "architecture" -> AttractionCategory.ARCHITECTURE;
+            case "art" -> AttractionCategory.ART;
+            case "museum" -> AttractionCategory.MUSEUM;
+            case "park" -> AttractionCategory.PARK;
             case "religious" -> AttractionCategory.RELIGIOUS;
-            case "historical" -> AttractionCategory.HISTORICAL;
-            case "nature" -> AttractionCategory.NATURE;
+            case "tower" -> AttractionCategory.TOWER;
             default -> AttractionCategory.ANOTHER;
         };
     }

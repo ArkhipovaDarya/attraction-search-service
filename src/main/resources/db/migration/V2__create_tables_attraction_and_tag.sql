@@ -5,7 +5,7 @@ drop table if exists public.tag;
 create table public.attraction (
     id bigserial not null,
     name varchar not null,
-    category varchar not null,
+    category varchar(255) not null,
     longitude float8 not null,
     latitude float8 not null,
     information varchar,
@@ -25,3 +25,17 @@ create table public.attractions_tags (
     tag_id integer not null,
     primary key (attraction_id, tag_id)
 );
+
+insert into public.tag (name)
+values
+    ('Walking'),
+    ('Forest'),
+    ('Learning'),
+    ('Photography'),
+    ('Books'),
+    ('Music'),
+    ('Comedy'),
+    ('Shop'),
+    ('Animals'),
+    ('Cafe'),
+    ('Rent');

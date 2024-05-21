@@ -6,3 +6,8 @@ create table public.city (
     primary key (id)
 );
 
+insert into public.city (name)
+values
+    ('city1'),
+    ('city2');
+

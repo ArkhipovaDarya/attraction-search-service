@@ -1,5 +1,6 @@
 package ssau.graduatework.attractionsearchservice.attraction;
 
+import ssau.graduatework.attractionsearchservice.review.Review;
 import ssau.graduatework.attractionsearchservice.review.dto.ReviewDto;
 
 import java.util.List;
@@ -11,11 +12,11 @@ public interface AttractionService {
     List<Attraction> getAttractionsByCityAndCategory(String city, String category);
     List<Attraction> getAttractionsByCityAndRate(String city, Double midRate);
     List<Attraction> getAttractionByCity(String city);
-    List<Object> getInformationAndRate(String attraction);
+    String getInformationAndRate(Long attraction);
     List<Attraction> showAllAttractions();
     List<AttractionDto> createAttractionList(List<Attraction> attractions);
-    List<ReviewDto> showReviewList(String attraction);
-    void setReview(String attraction, Integer rate, String review);
+    List<ReviewDto> showReviewList(Long attraction);
+    void setReview(Long attraction, Integer rate, String review);
     Attraction addNewAttraction(Attraction attraction);
     AttractionDto updateAttraction(AttractionDto attractionDto);
 }

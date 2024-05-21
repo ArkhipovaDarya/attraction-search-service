@@ -1,5 +1,5 @@
 package ssau.graduatework.attractionsearchservice.attraction.util;
 
 public enum AttractionCategory {
-    MILITARY, CULTURE, RELIGIOUS, HISTORICAL, NATURE, ANOTHER
+    MUSEUM, PARK, TOWER, RELIGIOUS, ART, ARCHITECTURE, ANOTHER
 }

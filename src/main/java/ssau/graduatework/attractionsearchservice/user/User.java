@@ -48,6 +48,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.reviewList = user.getReviewList();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -60,7 +68,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
     @Override
