@@ -1,18 +1,19 @@
 package ssau.graduatework.attractionsearchservice.recommender;
 
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.relational.core.sql.In;
 import ssau.graduatework.attractionsearchservice.attraction.Attraction;
 import ssau.graduatework.attractionsearchservice.review.Review;
+import ssau.graduatework.attractionsearchservice.review.ReviewRepository;
 import ssau.graduatework.attractionsearchservice.user.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Double.NaN;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 
 @Getter
 public class Cluster {
@@ -20,6 +21,8 @@ public class Cluster {
     private User centroid;
     private List<User> users;
     private boolean changed;
+
+    private ReviewRepository reviewRepository;
 
     public Cluster(User centroid) {
         this.centroid = centroid;
@@ -34,47 +37,49 @@ public class Cluster {
 
     public void updateCentroid() {
         if (!this.users.isEmpty()) {
-            User userMax = this.users.stream()
-                    .max(Comparator.comparingInt(user -> user.getReviewList().size())).get();
-            this.users.add(this.centroid);
-            this.users.remove(userMax);
-            this.centroid = new User(userMax);
-            this.changed = false;
+            List<Double> distances = new ArrayList<>();
+            for (User user: users) {
+                distances.add(getDistance(user, this.centroid));
+            }
+            double averageDist = distances.stream()
+                    .mapToDouble(Double::doubleValue)
+                    .average()
+                    .getAsDouble();
+            int ind = -1;
+            double d = 1.0;
+            for (User u : users) {
+                if (abs(getDistance(u, this.centroid) - averageDist) < d) {
+                    d = abs(getDistance(u, this.centroid) - averageDist);
+                    ind = users.indexOf(u);
+                }
+            }
+            if (ind != -1) {
+                User newCentroid = users.get(ind);
+                this.users.add(this.centroid);
+                this.users.remove(users.get(ind));
+                this.centroid = new User(newCentroid);
+                changed = true;
+            } else {
+                changed = false;
+            }
         }
+        changed = false;
     }
 
     public double getDistance(User user, User centroid) {
-        double dotProduct = 0.0;
-        List<Integer> user1Ratings = user.getReviewList().stream().map(Review::getRate).toList();
-        List<Integer> user2Ratings = centroid.getReviewList().stream().map(Review::getRate).toList();
+        List<Long> user1Ratings = user.getReviewList().stream().map(review -> review.getAttraction().getId()).toList();
+        List<Long> user2Ratings = centroid.getReviewList().stream().map(review -> review.getAttraction().getId()).toList();
 
         int intersectionSize = 0;
-        int unionSize = user1Ratings.size() + user2Ratings.size();
 
-        for (Integer rating : user1Ratings) {
-            if (user2Ratings.contains(rating)) {
+        for (Long id : user1Ratings) {
+            if (user2Ratings.contains(id)) {
                 intersectionSize++;
             }
         }
+        int unionSize = user1Ratings.size() + user2Ratings.size() - intersectionSize;
 
-        return 1.0 * intersectionSize / unionSize;
-    }
-
-    private static double calculateMagnitude(List<Integer> ratings) {
-        double magnitude = 0.0;
-        for (Integer rating : ratings) {
-            magnitude += Math.pow(rating, 2);
-        }
-        return Math.sqrt(magnitude);
-    }
-
-    public double getDistance(double avgRating, double rate) {
-        double dotProduct = avgRating * rate;
-
-        double attractionNorm = Math.sqrt(avgRating * avgRating);
-        double centroidNorm = Math.sqrt(rate * rate);
-
-        return dotProduct / (attractionNorm * centroidNorm);
+        return 1.0 - 1.0 * intersectionSize / unionSize;
     }
 
 }

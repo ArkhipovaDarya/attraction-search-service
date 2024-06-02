@@ -1,0 +1,1 @@
+select id, attraction.rate from attraction;

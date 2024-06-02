@@ -26,18 +26,8 @@ public class RecommendationController {
     @GetMapping("/{userId}")
     public List<AttractionDto> getRecommendations(@PathVariable Long userId) throws IOException {
 
-        // Получение рекомендаций с использованием коллаборативной фильтрации
         List<Attraction> collaborativeRecommendations = collaborativeFilteringService.getRecommendations(userId);
 
-        // Получение рекомендаций с использованием контентной фильтрации
-        //List<Attraction> contentBasedRecommendations = contentBasedFilteringService.getRecommendations(userId);
-
-        // Объединение рекомендаций из обоих методов и присвоение им равного веса
-        //Set<AttractionDto> combinedRecommendations = new HashSet<>();
-        //combinedRecommendations.addAll(collaborativeRecommendations);
-        //combinedRecommendations.addAll(contentBasedRecommendations);
-        // Возврат отсортированного списка объединенных рекомендаций
-        //return new ArrayList<>(combinedRecommendations);
         return attractionMapper.mapToDtoList(collaborativeRecommendations);
     }
 }
